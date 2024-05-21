@@ -79,7 +79,6 @@ async function run() {
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
           })
           .send({ success: true });
-        console.log("Logout successful");
       } catch (err) {
         res.status(500).send(err);
       }
@@ -87,11 +86,15 @@ async function run() {
 
     // Get all Rooms
     app.get("/rooms", async (req, res) => {
-      const result = await roomCollection.find().toArray();
+      const { category } = req.query;
+      let query = {};
+      if (category && category !== "null") query = { category };
+      const result = await roomCollection.find(query).toArray();
       res.send(result);
     });
     app.get("/rooms/:id", async (req, res) => {
       const id = req.params.id;
+      s;
       const query = { _id: new ObjectId(id) };
       const result = await roomCollection.findOne(query);
       res.send(result);
