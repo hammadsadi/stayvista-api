@@ -94,7 +94,7 @@ async function run() {
     });
     app.get("/rooms/:id", async (req, res) => {
       const id = req.params.id;
-      s;
+
       const query = { _id: new ObjectId(id) };
       const result = await roomCollection.findOne(query);
       res.send(result);
